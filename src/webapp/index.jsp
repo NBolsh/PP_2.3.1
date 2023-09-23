@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Hello World!</h2>
+<h2>Use /users to see "User list"</h2>
 </body>
 </html>
