@@ -5,9 +5,10 @@
     <title>User List</title>
 </head>
 <body>
-<h1>User list</h1>
+<h1>User List</h1>
 <div>
-    <table>
+    <table th:border="1" th:cellpadding="5">
+
         <tr>
             <th>Id</th>
             <th>Age</th>
@@ -20,6 +21,20 @@
             <td th:utext="${user.getAge}">...</td>
             <td th:utext="${user.getName}">...</td>
             <td th:utext="${user.getSurname}">...</td>
+            <td>
+                <label>
+                    <a th:href="@{/users/edit(userId=${user.getId})}">
+                        <input th:type="button" value="Edit" />
+                    </a>
+                </label>
+
+                <label>
+                    <a th:href="@{/users/delete(userId=${user.getId})}">
+                        <input th:type="button" value="Delete" />
+                    </a>
+                </label>
+            </td>
+
         </tr>
     </table>
     <br/>

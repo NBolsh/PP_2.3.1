@@ -18,7 +18,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     @Transactional
     public void addUser(User user) {
-        em.persist(user);
+        em.merge(user);
         em.flush();
     }
 
@@ -31,12 +31,16 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void deleteUser(User user) {
-        em.remove(user);
+    @Transactional(readOnly = true)
+    public User findUserById(int id) {
+        return em.find(User.class, id);
     }
 
     @Override
-    public void editUser(User user) {
-
+    @Transactional
+    public void deleteUser(int id) {
+        em.remove(em.find(User.class, id));
     }
+
+
 }

@@ -31,12 +31,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(User user) {
-
+    public void deleteUser(int id) {
+        userDAO.deleteUser(id);
     }
 
     @Override
-    public void editUser(User user) {
-
+    public User findUserById(int id) {
+       return userDAO.findUserById(id);
     }
 }

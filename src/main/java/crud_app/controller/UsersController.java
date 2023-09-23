@@ -27,13 +27,27 @@ public class UsersController {
 
     @GetMapping("/users/new")
     public String newUser(Model model) {
-        model.addAttribute("newUser",new User());
-        return "/users/new";
+        model.addAttribute("user",new User());
+        return "/users/userInfo";
     }
 
     @PostMapping("/users")
-    public String addUser(@ModelAttribute("newUser") User user){
+    public String addUser(@ModelAttribute("user") User user){
         userService.addUser(user);
         return "redirect:/users";
     }
+
+    @GetMapping("/users/edit")
+    public String findUser(@RequestParam("userId") int id,
+                           Model model){
+        model.addAttribute("user", userService.findUserById(id));
+        return "/users/userInfo";
+    }
+
+    @GetMapping("/users/delete")
+    public String deleteUser(@RequestParam("userId") int id) {
+        userService.deleteUser(id);
+        return "redirect:/users";
+    }
+
 }
