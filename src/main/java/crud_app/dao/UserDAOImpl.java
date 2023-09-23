@@ -32,13 +32,13 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     @Transactional(readOnly = true)
-    public User findUserById(int id) {
+    public User findUserById(long id) {
         return em.find(User.class, id);
     }
 
     @Override
     @Transactional
-    public void deleteUser(int id) {
+    public void deleteUser(long id) {
         em.remove(em.find(User.class, id));
     }
 

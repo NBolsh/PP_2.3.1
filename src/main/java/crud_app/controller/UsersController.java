@@ -38,14 +38,14 @@ public class UsersController {
     }
 
     @GetMapping("/users/edit")
-    public String findUser(@RequestParam("userId") int id,
+    public String findUser(@RequestParam("userId") long id,
                            Model model){
         model.addAttribute("user", userService.findUserById(id));
         return "/users/userInfo";
     }
 
     @GetMapping("/users/delete")
-    public String deleteUser(@RequestParam("userId") int id) {
+    public String deleteUser(@RequestParam("userId") long id) {
         userService.deleteUser(id);
         return "redirect:/users";
     }
