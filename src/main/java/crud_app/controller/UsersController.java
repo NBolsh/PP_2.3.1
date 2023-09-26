@@ -2,19 +2,25 @@ package crud_app.controller;
 
 import crud_app.model.User;
 import crud_app.service.UserService;
+import crud_app.util.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 public class UsersController {
     private UserService userService;
+    private UserValidator userValidator;
 
 
     @Autowired
-    public UsersController(UserService userService){
+    public UsersController(UserService userService, UserValidator userValidator){
         this.userService = userService;
+        this.userValidator = userValidator;
     }
 
     @GetMapping( "/users")
@@ -32,7 +38,13 @@ public class UsersController {
     }
 
     @PostMapping("/users")
-    public String addUser(@ModelAttribute("user") User user){
+    public String addUser(@ModelAttribute("user") @Valid User user,
+                          BindingResult bindingResult){
+
+        userValidator.validate(user, bindingResult);
+
+        if (bindingResult.hasErrors()) { return "/users/userInfo"; }
+
         userService.addUser(user);
         return "redirect:/users";
     }

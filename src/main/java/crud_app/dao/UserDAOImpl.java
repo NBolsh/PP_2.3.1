@@ -6,8 +6,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -41,6 +43,12 @@ public class UserDAOImpl implements UserDAO {
     public void deleteUser(long id) {
         em.remove(em.find(User.class, id));
     }
+    @Override
+    public Optional<User> findUserByEmail(String email){
+        String que = "SELECT u From User u where u.email = :email";
 
+        return Optional.ofNullable(em.createQuery(que, User.class).setParameter("email", email)
+                .getSingleResult());
+    }
 
 }
